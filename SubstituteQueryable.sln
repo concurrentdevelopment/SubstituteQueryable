@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29920.165
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubstituteQueryable", "SubstituteQueryable\SubstituteQueryable.csproj", "{4788E36A-2130-4FB5-B546-D77558C54E6B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubstituteQueryable.Test", "SubstituteQueryable.Test\SubstituteQueryable.Test.csproj", "{351A7516-BD48-4087-8B13-BE9E8FC7629B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4788E36A-2130-4FB5-B546-D77558C54E6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4788E36A-2130-4FB5-B546-D77558C54E6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4788E36A-2130-4FB5-B546-D77558C54E6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4788E36A-2130-4FB5-B546-D77558C54E6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{351A7516-BD48-4087-8B13-BE9E8FC7629B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{351A7516-BD48-4087-8B13-BE9E8FC7629B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{351A7516-BD48-4087-8B13-BE9E8FC7629B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{351A7516-BD48-4087-8B13-BE9E8FC7629B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E8035045-0857-4317-A819-E5E6235115A3}
+	EndGlobalSection
+EndGlobal
