@@ -10,10 +10,11 @@
     <license type="expression">MIT</license>
     <projectUrl>https://github.com/concurrentdevelopment/SubstituteQueryable</projectUrl>
     <description>Helper to ease unit testing when you are working with NHibernate's ISession</description>
-    <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
     <copyright>Concurrent 2020</copyright>
     <dependencies>
-      <dependency id="NHibernate" version="5.0.0" />
+      <group targetFramework=".NETFramework4.6.1">
+        <dependency id="NHibernate" version="5.0.0" />
+      </group>
     </dependencies>
   </metadata>
 </package>
