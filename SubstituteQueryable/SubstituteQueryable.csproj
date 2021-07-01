@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="ExpressionTreeModifier`1.cs" />
     <Compile Include="FutureEnumerable`1.cs" />
+    <Compile Include="IDictionaryExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SubstituteQueryable`1.cs" />
     <Compile Include="SubstituteQueryProvider`1.cs" />
