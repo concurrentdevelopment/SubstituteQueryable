@@ -58,9 +58,9 @@
 
 		public int ExecuteDml<T1>(QueryMode queryMode, Expression expression)
 		{
+			int count = 0;
 			if (queryMode == QueryMode.Delete)
 			{
-				int count = 0;
 				foreach (var item in Expression.Lambda(expression).Compile().DynamicInvoke() as IEnumerable<T>)
 				{
 					count++;
@@ -69,26 +69,36 @@
 				return count;
 			}
 
+			var methodCall = expression as MethodCallExpression;
+			var translation = methodCall.Arguments.Last();
+			var filtered = Expression.Lambda<Func<IEnumerable<T>>>(methodCall.Arguments.First()).Compile()();
+
 			if (queryMode == QueryMode.Insert)
-			{
-				int count = 0;
-				foreach (var item in Expression.Lambda(expression).Compile().DynamicInvoke() as IEnumerable<Dictionary<string, object>>)
+			{				
+				foreach (var item in filtered)
 				{
+					var result = Activator.CreateInstance<T1>();
+
+					new BlockVisitor<T, T1>(item, result).Visit(translation);
+
 					count++;
 
-					Inserts.Add(item.ToObject<T1>());
+					Inserts.Add(result);
 				}
 				return count;
 			}
 
 			if (queryMode == QueryMode.Update)
 			{
-				int count = 0;
-				foreach (var item in Expression.Lambda(expression).Compile().DynamicInvoke() as IEnumerable<Dictionary<string, object>>)
+				foreach (var item in filtered)
 				{
+					var result = Activator.CreateInstance<T>();
+
+					new BlockVisitor<T, T>(item, result).Visit(translation);
+
 					count++;
 
-					Updates.Add(item.ToObject<T>());
+					Updates.Add(result);
 				}
 				return count;
 			}

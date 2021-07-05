@@ -127,7 +127,7 @@
 			Assert.That(result, Is.EqualTo(1));
 			Assert.That(_queryable.Inserts, Has.Count.EqualTo(1));
 			Assert.That(_queryable.Inserts[0], Has.Property("Name").EqualTo("Cora"));
-			Assert.That(_queryable.Inserts[0], Has.Property("Person").Property("Name").EqualTo("Cora"));
+			Assert.That(_queryable.Inserts[0], Has.Property("Person").Not.Null.With.Property("Name").EqualTo("Cora"));
 		}
 
 		[Test]
@@ -138,7 +138,7 @@
 			Assert.That(result, Is.EqualTo(1));
 			Assert.That(_queryable.Inserts, Has.Count.EqualTo(1));
 			Assert.That(_queryable.Inserts[0], Has.Property("Name").EqualTo("Cora"));
-			Assert.That(_queryable.Inserts[0], Has.Property("Person").Property("Name").EqualTo("Cora"));
+			Assert.That(_queryable.Inserts[0], Has.Property("Person").Not.Null.With.Property("Name").EqualTo("Cora"));
 		}
 
 		[Test]
