@@ -1,5 +1,6 @@
 ﻿namespace SubstituteQueryable.Test
 {
+	using System;
 	using System.Linq;
 	using System.Threading.Tasks;
 	using NHibernate.Linq;
@@ -161,6 +162,27 @@
 			Assert.That(result, Is.EqualTo(1));
 			Assert.That(_queryable.Updates, Has.Count.EqualTo(1));
 			Assert.That(_queryable.Updates[0], Has.Property("Name").EqualTo("Cora2"));
+		}
+
+		[Test]
+		public async Task VerifyDate()
+		{
+			var date = DateTime.Today;
+
+			var result = await _queryable.Where(x => x.Name == "Alice").InsertIntoAsync(x => new Employee { Name = x.Name, Person = x, StartDate = date });
+
+			Assert.That(_queryable.Inserts, Has.Count.EqualTo(1));
+			Assert.That(_queryable.Inserts[0], Has.Property("StartDate").EqualTo(date));
+		}
+
+		[Test]
+		public async Task VerifyPropertyChain()
+		{
+			var result = await _queryable.Where(x => x.Name == "Alice").InsertIntoAsync(x => new Employee { Name = x.Name, Person = x, NextOfKinName = x.Parent.Name });
+
+			Assert.That(_queryable.Inserts, Has.Count.EqualTo(1));
+			Assert.That(_queryable.Inserts[0], Has.Property("NextOfKinName").EqualTo("Dilip"));
+
 		}
 	}
 }
