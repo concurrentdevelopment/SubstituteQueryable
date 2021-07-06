@@ -61,7 +61,7 @@
 			int count = 0;
 			if (queryMode == QueryMode.Delete)
 			{
-				foreach (var item in Expression.Lambda(expression).Compile().DynamicInvoke() as IEnumerable<T>)
+				foreach (var item in GetQueriedItems(expression))
 				{
 					count++;
 					Deletes.Add(item);
@@ -71,15 +71,13 @@
 
 			var methodCall = expression as MethodCallExpression;
 			var translation = methodCall.Arguments.Last();
-			var filtered = Expression.Lambda<Func<IEnumerable<T>>>(methodCall.Arguments.First()).Compile()();
+			var filtered = GetQueriedItems(methodCall.Arguments.First());
 
 			if (queryMode == QueryMode.Insert)
-			{				
+			{
 				foreach (var item in filtered)
 				{
-					var result = Activator.CreateInstance<T1>();
-
-					new BlockVisitor<T, T1>(item, result).Visit(translation);
+					var result = new ObjectTranslator<T1>(item).GetObjectForDml(translation);
 
 					count++;
 
@@ -92,9 +90,7 @@
 			{
 				foreach (var item in filtered)
 				{
-					var result = Activator.CreateInstance<T>();
-
-					new BlockVisitor<T, T>(item, result).Visit(translation);
+					var result = new ObjectTranslator<T>(item).GetObjectForDml(translation);
 
 					count++;
 
@@ -103,7 +99,12 @@
 				return count;
 			}
 
-			throw new NotImplementedException();
+			throw new NotImplementedException($"{queryMode} has not been implemented.");
+		}
+
+		IEnumerable<T> GetQueriedItems(Expression expression)
+		{
+			return Expression.Lambda<Func<IEnumerable<T>>>(expression).Compile()();
 		}
 
 		public Task<int> ExecuteDmlAsync<T1>(QueryMode queryMode, Expression expression, CancellationToken cancellationToken)

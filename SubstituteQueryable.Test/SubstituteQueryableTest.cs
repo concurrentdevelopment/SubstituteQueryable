@@ -122,22 +122,24 @@
 		[Test]
 		public void VerifyInsertInto()
 		{
-			var result = _queryable.Where(x => x.Name == "Cora").InsertInto(x => new Employee { Name = x.Name, Person = x });
+			var result = _queryable.Where(x => x.Name == "Cora").InsertInto(x => new Employee { Name = x.Name, Person = x, Position = Position.Worker });
 
 			Assert.That(result, Is.EqualTo(1));
 			Assert.That(_queryable.Inserts, Has.Count.EqualTo(1));
 			Assert.That(_queryable.Inserts[0], Has.Property("Name").EqualTo("Cora"));
+			Assert.That(_queryable.Inserts[0], Has.Property("Position").EqualTo(Position.Worker));
 			Assert.That(_queryable.Inserts[0], Has.Property("Person").Not.Null.With.Property("Name").EqualTo("Cora"));
 		}
 
 		[Test]
 		public async Task VerifyInsertIntoAsync()
 		{
-			var result = await _queryable.Where(x => x.Name == "Cora").InsertIntoAsync(x => new Employee { Name = x.Name, Person = x }, default);
+			var result = await _queryable.Where(x => x.Name == "Cora").InsertIntoAsync(x => new Employee { Name = x.Name, Person = x, Position = Position.Worker }, default);
 
 			Assert.That(result, Is.EqualTo(1));
 			Assert.That(_queryable.Inserts, Has.Count.EqualTo(1));
 			Assert.That(_queryable.Inserts[0], Has.Property("Name").EqualTo("Cora"));
+			Assert.That(_queryable.Inserts[0], Has.Property("Position").EqualTo(Position.Worker));
 			Assert.That(_queryable.Inserts[0], Has.Property("Person").Not.Null.With.Property("Name").EqualTo("Cora"));
 		}
 
