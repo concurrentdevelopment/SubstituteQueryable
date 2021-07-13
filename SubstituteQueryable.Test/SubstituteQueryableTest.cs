@@ -175,6 +175,17 @@
 			Assert.That(_queryable.Inserts[0], Has.Property("StartDate").EqualTo(date));
 		}
 
+
+		[Test]
+		public async Task VerifyDirectDate()
+		{
+
+			var result = await _queryable.Where(x => x.Name == "Alice").InsertIntoAsync(x => new Employee { Name = x.Name, Person = x, StartDate = DateTime.Today });
+
+			Assert.That(_queryable.Inserts, Has.Count.EqualTo(1));
+			Assert.That(_queryable.Inserts[0], Has.Property("StartDate").EqualTo(DateTime.Today));
+		}
+
 		[Test]
 		public async Task VerifyPropertyChain()
 		{

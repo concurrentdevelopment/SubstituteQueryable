@@ -15,14 +15,9 @@
 			return Visit(node.Operand);
 		}
 
-		public override Expression Visit(Expression node)
+		protected override Expression VisitParameter(ParameterExpression node)
 		{
-			if (node.NodeType == ExpressionType.Parameter)
-			{
-				return Expression.Constant(_item);
-			}
-
-			return base.Visit(node);
+			return Expression.Constant(_item);
 		}
 	}
 }
