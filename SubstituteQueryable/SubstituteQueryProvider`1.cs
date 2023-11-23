@@ -2,8 +2,10 @@
 {
 	using System;
 	using System.Collections.Generic;
+	using System.Globalization;
 	using System.Linq;
 	using System.Linq.Expressions;
+	using System.Reflection;
 	using System.Threading;
 	using System.Threading.Tasks;
 	using NHibernate;
@@ -31,8 +33,12 @@
 		{
 			var elementType = expression.Type.GetExpressionElementType();
 
-			return (IQueryable)Activator.CreateInstance(typeof(SubstituteQueryable<>)
-										.MakeGenericType(elementType), new object[] { this, expression });
+			return (IQueryable)Activator.CreateInstance(
+				typeof(SubstituteQueryable<>).MakeGenericType(elementType),
+				BindingFlags.NonPublic | BindingFlags.Instance,
+				null,
+				new object[] { this, expression },
+				null);
 		}
 
 		public IQueryable<TElement> CreateQuery<TElement>(Expression expression)

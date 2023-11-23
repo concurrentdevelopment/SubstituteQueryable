@@ -10,7 +10,7 @@
     <license type="expression">MIT</license>
     <projectUrl>https://github.com/concurrentdevelopment/SubstituteQueryable</projectUrl>
     <description>Helper to ease unit testing when you are working with NHibernate's ISession</description>
-    <copyright>Concurrent 2021</copyright>
+    <copyright>Concurrent 2023</copyright>
     <dependencies>
       <group targetFramework=".NETFramework4.6.1">
         <dependency id="NHibernate" version="5.0.0" />

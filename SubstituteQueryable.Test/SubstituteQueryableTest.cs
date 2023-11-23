@@ -2,6 +2,7 @@
 {
 	using System;
 	using System.Linq;
+	using System.Linq.Dynamic;
 	using System.Threading.Tasks;
 	using NHibernate.Linq;
 	using NUnit.Framework;
@@ -27,6 +28,16 @@
 		public void VerifyOrderBy()
 		{
 			var result = _queryable.OrderBy(x => x.Name).ToList();
+
+			Assert.That(result[0].Name, Is.EqualTo("Alice"));
+			Assert.That(result[1].Name, Is.EqualTo("Bob"));
+			Assert.That(result[2].Name, Is.EqualTo("Cora"));
+		}
+
+		[Test]
+		public void VerifyOrderByString()
+		{
+			var result = _queryable.OrderBy("Name").ToList();
 
 			Assert.That(result[0].Name, Is.EqualTo("Alice"));
 			Assert.That(result[1].Name, Is.EqualTo("Bob"));
