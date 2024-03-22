@@ -2,7 +2,7 @@
 {
 	using System.Collections.Generic;
 
-	class Person
+	internal class Person
 	{
 		public string Name { get; set; }
 

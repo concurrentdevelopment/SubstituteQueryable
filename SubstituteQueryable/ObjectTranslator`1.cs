@@ -4,10 +4,10 @@
 	using System.Linq;
 	using System.Linq.Expressions;
 
-	class ObjectTranslator<Target> : ExpressionVisitor
+	internal class ObjectTranslator<Target> : ExpressionVisitor
 	{
-		readonly object _source;
-		readonly Target _target;
+		private readonly object _source;
+		private readonly Target _target;
 
 		public ObjectTranslator(object source)
 		{

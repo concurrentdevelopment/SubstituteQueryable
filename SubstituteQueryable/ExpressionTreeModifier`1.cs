@@ -4,9 +4,9 @@
 	using System.Linq.Expressions;
 	using NHibernate.Linq;
 
-	class ExpressionTreeModifier<T> : ExpressionVisitor
+	internal class ExpressionTreeModifier<T> : ExpressionVisitor
 	{
-		private IQueryable<T> _queryableData;
+		private readonly IQueryable<T> _queryableData;
 
 		internal ExpressionTreeModifier(IQueryable<T> queryableData)
 		{

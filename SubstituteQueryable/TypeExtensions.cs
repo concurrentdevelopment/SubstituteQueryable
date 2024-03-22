@@ -3,11 +3,11 @@
 	using System;
 	using System.Collections.Generic;
 
-	static class TypeExtensions
+	internal static class TypeExtensions
 	{
 		internal static Type GetExpressionElementType(this Type seqType)
 		{
-			Type ienum = FindIEnumerable(seqType);
+			var ienum = FindIEnumerable(seqType);
 			if (ienum == null) return seqType;
 			return ienum.GetGenericArguments()[0];
 		}
@@ -22,9 +22,9 @@
 
 			if (seqType.IsGenericType)
 			{
-				foreach (Type arg in seqType.GetGenericArguments())
+				foreach (var arg in seqType.GetGenericArguments())
 				{
-					Type ienum = typeof(IEnumerable<>).MakeGenericType(arg);
+					var ienum = typeof(IEnumerable<>).MakeGenericType(arg);
 					if (ienum.IsAssignableFrom(seqType))
 					{
 						return ienum;
@@ -32,12 +32,12 @@
 				}
 			}
 
-			Type[] ifaces = seqType.GetInterfaces();
+			var ifaces = seqType.GetInterfaces();
 			if (ifaces != null && ifaces.Length > 0)
 			{
-				foreach (Type iface in ifaces)
+				foreach (var iface in ifaces)
 				{
-					Type ienum = FindIEnumerable(iface);
+					var ienum = FindIEnumerable(iface);
 					if (ienum != null) return ienum;
 				}
 			}

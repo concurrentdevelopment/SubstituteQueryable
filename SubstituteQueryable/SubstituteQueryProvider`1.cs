@@ -2,7 +2,6 @@
 {
 	using System;
 	using System.Collections.Generic;
-	using System.Globalization;
 	using System.Linq;
 	using System.Linq.Expressions;
 	using System.Reflection;
@@ -53,7 +52,7 @@
 
 		public TResult Execute<TResult>(Expression expression)
 		{
-			bool IsEnumerable = typeof(TResult).Name == "IEnumerable`1";
+			var IsEnumerable = typeof(TResult).Name == "IEnumerable`1";
 			return (TResult)ExecuteInMemoryQuery(expression, IsEnumerable);
 		}
 
@@ -64,7 +63,7 @@
 
 		public int ExecuteDml<T1>(QueryMode queryMode, Expression expression)
 		{
-			int count = 0;
+			var count = 0;
 			if (queryMode == QueryMode.Delete)
 			{
 				foreach (var item in GetQueriedItems(expression))
@@ -108,7 +107,7 @@
 			throw new NotImplementedException($"{queryMode} has not been implemented.");
 		}
 
-		IEnumerable<T> GetQueriedItems(Expression expression)
+		private IEnumerable<T> GetQueriedItems(Expression expression)
 		{
 			return Expression.Lambda<Func<IEnumerable<T>>>(expression).Compile()();
 		}

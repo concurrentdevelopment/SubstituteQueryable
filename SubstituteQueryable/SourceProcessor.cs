@@ -2,9 +2,9 @@
 {
 	using System.Linq.Expressions;
 
-	class SourceProcessor : ExpressionVisitor
+	internal class SourceProcessor : ExpressionVisitor
 	{
-		readonly object _item;
+		private readonly object _item;
 
 		public SourceProcessor(object item)
 		{

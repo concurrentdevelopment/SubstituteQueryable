@@ -6,9 +6,9 @@
 	using System.Threading.Tasks;
 	using NHibernate;
 
-	class FutureEnumerable<T> : IFutureEnumerable<T>
+	internal class FutureEnumerable<T> : IFutureEnumerable<T>
 	{
-		readonly IEnumerable<T> _items;
+		private readonly IEnumerable<T> _items;
 
 		public FutureEnumerable(IEnumerable<T> items)
 		{

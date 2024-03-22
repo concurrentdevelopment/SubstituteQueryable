@@ -2,7 +2,7 @@
 {
 	using System;
 	using System.Linq;
-	using System.Linq.Dynamic;
+	using System.Linq.Dynamic.Core;
 	using System.Threading.Tasks;
 	using NHibernate.Linq;
 	using NUnit.Framework;
@@ -11,7 +11,7 @@
 	[TestFixture]
 	internal class SubstituteQueryableTest
 	{
-		SubstituteQueryable<Person> _queryable;
+		private SubstituteQueryable<Person> _queryable;
 
 		[SetUp]
 		public void SetUp()
@@ -180,7 +180,7 @@
 		{
 			var date = DateTime.Today;
 
-			var result = await _queryable.Where(x => x.Name == "Alice").InsertIntoAsync(x => new Employee { Name = x.Name, Person = x, StartDate = date });
+			var result = await _queryable.Where(x => x.Name == "Alice").InsertIntoAsync(x => new Employee { Name = x.Name, Person = x, StartDate = date }, default);
 
 			Assert.That(_queryable.Inserts, Has.Count.EqualTo(1));
 			Assert.That(_queryable.Inserts[0], Has.Property("StartDate").EqualTo(date));
@@ -191,7 +191,7 @@
 		public async Task VerifyDirectDate()
 		{
 
-			var result = await _queryable.Where(x => x.Name == "Alice").InsertIntoAsync(x => new Employee { Name = x.Name, Person = x, StartDate = DateTime.Today });
+			var result = await _queryable.Where(x => x.Name == "Alice").InsertIntoAsync(x => new Employee { Name = x.Name, Person = x, StartDate = DateTime.Today }, default);
 
 			Assert.That(_queryable.Inserts, Has.Count.EqualTo(1));
 			Assert.That(_queryable.Inserts[0], Has.Property("StartDate").EqualTo(DateTime.Today));
@@ -200,7 +200,7 @@
 		[Test]
 		public async Task VerifyPropertyChain()
 		{
-			var result = await _queryable.Where(x => x.Name == "Alice").InsertIntoAsync(x => new Employee { Name = x.Name, Person = x, NextOfKinName = x.Parent.Name });
+			var result = await _queryable.Where(x => x.Name == "Alice").InsertIntoAsync(x => new Employee { Name = x.Name, Person = x, NextOfKinName = x.Parent.Name }, default);
 
 			Assert.That(_queryable.Inserts, Has.Count.EqualTo(1));
 			Assert.That(_queryable.Inserts[0], Has.Property("NextOfKinName").EqualTo("Dilip"));
