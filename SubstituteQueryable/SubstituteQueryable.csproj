@@ -13,4 +13,13 @@
 	<Version>2.0.0</Version>
   </PropertyGroup>
 
+  <PropertyGroup>
+	<Authors>Concurrent</Authors>
+	<Copyright>Concurrent 2024</Copyright>	
+    <Description>Helper to ease unit testing when you are working with NHibernate's ISession</Description>
+	<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<PackageProjectUrl>https://github.com/concurrentdevelopment/SubstituteQueryable</PackageProjectUrl>
+  </PropertyGroup>
+
 </Project>
