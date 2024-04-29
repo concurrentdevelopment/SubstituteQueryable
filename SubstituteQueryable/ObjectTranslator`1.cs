@@ -1,7 +1,7 @@
 ﻿namespace SubstituteQueryable
 {
 	using System;
-	using System.Linq;
+	using System.Collections.Generic;
 	using System.Linq.Expressions;
 
 	internal class ObjectTranslator<Target> : ExpressionVisitor
@@ -17,25 +17,26 @@
 
 		public Target GetObjectForDml(Expression translationExpression)
 		{
-			Visit(translationExpression);
+			var unary = translationExpression as UnaryExpression;
+
+			var lambda = unary.Operand as LambdaExpression;
+
+			var updates = lambda.Compile().DynamicInvoke(_source) as Dictionary<string, object>;
+
+			foreach (var property in typeof(Target).GetProperties())
+			{
+				if (updates.TryGetValue(property.Name, out var propertyValue))
+				{
+					property.SetValue(_target, propertyValue);
+				}
+			}
 
 			return _target;
 		}
 
-		protected override Expression VisitBlock(BlockExpression node)
+		protected override Expression VisitUnary(UnaryExpression node)
 		{
-			foreach (var item in node.Expressions.OfType<BinaryExpression>())
-			{
-				var targetExpression = Expression.Property(Expression.Constant(_target), (item.Left as ParameterExpression).Name);
-
-				var sourceExpression = new SourceProcessor(_source).Visit(item.Right);
-
-				var assignment = Expression.Assign(targetExpression, sourceExpression);
-
-				Expression.Lambda(assignment).Compile().DynamicInvoke();
-			}
-
-			return base.VisitBlock(node);
+			return Visit(node.Operand);
 		}
 	}
 }
