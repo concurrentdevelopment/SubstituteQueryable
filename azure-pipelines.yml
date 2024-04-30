@@ -18,8 +18,8 @@ steps:
 - script: dotnet test --configuration $(buildConfiguration)
   displayName: 'Build and Test'
   
-- script: dotnet pack SubstituteQueryable/SubstituteQueryable.csproj --configuration $(buildConfiguration) --output nupkgs
+- script: dotnet pack SubstituteQueryable/SubstituteQueryable.csproj --configuration $(buildConfiguration) --output .
   displayName: 'Nuget Pack'
   
-- script: dotnet nuget push 'nupkgs/*.nupkg' --api-key $(nuGetApiKey) --source https://api.nuget.org/v3/index.json
+- script: dotnet nuget push *.nupkg --api-key $(nuGetApiKey) --source https://api.nuget.org/v3/index.json
   displayName: 'NuGet Publish'
