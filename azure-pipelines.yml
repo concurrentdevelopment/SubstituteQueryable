@@ -1,0 +1,25 @@
+# ASP.NET Core
+# Build and test ASP.NET Core projects targeting .NET Core.
+# Add steps that run tests, create a NuGet package, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+- master
+
+pool:
+  vmImage: windows-latest
+
+variables:
+- group: apiKeys
+- name: buildConfiguration
+  value: 'Release'
+
+steps:
+- script: dotnet test --configuration $(buildConfiguration)
+  displayName: 'Build and Test'
+  
+- script: dotnet pack SubstituteQueryable/SubstituteQueryable.csproj --configuration $(buildConfiguration) --output .
+  displayName: 'Nuget Pack'
+  
+- script: dotnet nuget push *.nupkg --api-key $(nuGetApiKey) --source https://api.nuget.org/v3/index.json
+  displayName: 'NuGet Publish'

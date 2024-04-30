@@ -190,7 +190,6 @@
 		[Test]
 		public async Task VerifyDirectDate()
 		{
-
 			var result = await _queryable.Where(x => x.Name == "Alice").InsertIntoAsync(x => new Employee { Name = x.Name, Person = x, StartDate = DateTime.Today }, default);
 
 			Assert.That(_queryable.Inserts, Has.Count.EqualTo(1));
