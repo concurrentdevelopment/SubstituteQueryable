@@ -15,8 +15,15 @@ variables:
   value: 'Release'
 
 steps:
-- script: dotnet test --configuration $(buildConfiguration)
-  displayName: 'Build and Test'
+- script: dotnet build --configuration $(buildConfiguration)
+  displayName: 'Build'
+  
+- task: DotNetCoreCLI@2
+  displayName: 'Test'
+  inputs:
+    command: test
+    projects: '**/*.Test/*.csproj'
+    arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
   
 - script: dotnet pack SubstituteQueryable/SubstituteQueryable.csproj --configuration $(buildConfiguration) --output .
   displayName: 'Nuget Pack'
