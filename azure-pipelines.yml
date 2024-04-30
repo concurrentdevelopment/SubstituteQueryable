@@ -21,5 +21,5 @@ steps:
 - script: dotnet pack SubstituteQueryable/SubstituteQueryable.csproj --configuration $(buildConfiguration) --output nupkgs
   displayName: 'Nuget Pack'
   
-- script: dotnet nuget push 'nupgks/*.nupkg' --api-key $(nuGetApiKey) --source https://api.nuget.org/v3/index.json
+- script: dotnet nuget push 'nupkgs/*.nupkg' --api-key $(nuGetApiKey) --source https://api.nuget.org/v3/index.json
   displayName: 'NuGet Publish'
