@@ -1,25 +1,30 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">  
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="NHibernate" Version="5.1.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="NHibernate" Version="5.1.0" />
+	</ItemGroup>
 
-  <PropertyGroup>
-	<IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
-	<Version>2.0.2</Version>
-  </PropertyGroup>
+	<ItemGroup>
+		<None Include="..\README.md" Pack="true" PackagePath="\"/>
+	</ItemGroup>
 
-  <PropertyGroup>
-	<Authors>Concurrent</Authors>
-	<Copyright>Concurrent 2024</Copyright>	
-    <Description>Helper to ease unit testing when you are working with NHibernate's ISession</Description>
-	<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-	<PackageLicenseExpression>MIT</PackageLicenseExpression>
-	<PackageProjectUrl>https://github.com/concurrentdevelopment/SubstituteQueryable</PackageProjectUrl>
-  </PropertyGroup>
+	<PropertyGroup>
+		<IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
+		<Version>2.0.3</Version>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<Authors>Concurrent</Authors>
+		<Copyright>Concurrent 2024</Copyright>
+		<Description>Helper to ease unit testing when you are working with NHibernate's ISession</Description>
+		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/concurrentdevelopment/SubstituteQueryable</PackageProjectUrl>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+	</PropertyGroup>
 
 </Project>
