@@ -10,12 +10,15 @@ pool:
   vmImage: windows-latest
 
 variables:
+- group: apiKeys
   buildConfiguration: 'Release'
 
 steps:
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
-
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'test'
+- script: dotnet test --configuration $(buildConfiguration)
+  displayName: 'Build and Test'
+  
+- script: dotnet pack SubstituteQueryable/SubstituteQueryable.csproj --configuration $(buildConfiguration) --output nupkgs
+  displayName: 'Nuget Pack'
+  
+- script: dotnet nuget push 'nupgks/*.nupkg' --api-key $(nuGetApiKey) --source https://api.nuget.org/v3/index.json
+  displayName: 'NuGet Publish'
