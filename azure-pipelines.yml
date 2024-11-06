@@ -18,12 +18,15 @@ steps:
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'Build'
   
-- task: DotNetCoreCLI@2
+- task: VSTest@3
   displayName: 'Test'
   inputs:
-    command: test
-    projects: '**/*.Test/*.csproj'
-    arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
+    testSelector: 'testAssemblies'
+    testAssemblyVer2: |
+      **/bin/$(buildConfiguration)/**/SubstituteQueryable.Test.dll
+      !**/obj/*
+    codeCoverageEnabled: true
+    rerunFailedTests: true
   
 - script: dotnet pack SubstituteQueryable/SubstituteQueryable.csproj --configuration $(buildConfiguration) --output .
   displayName: 'Nuget Pack'
